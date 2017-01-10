@@ -1,0 +1,64 @@
+#24. Swap Nodes in Pairs
+##题目
+
+给定单链表，每两个相邻结点相互交换，返回新链表头。比如：
+```
+Given 1->2->3->4, you should return the list as 2->1->4->3.
+```
+ - 要求空间复杂度O(1)
+ - 不能修改链表结点中的值，只能修改结点本身
+
+##思路1
+迭代：
+```C++
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if (head == nullptr || head->next == nullptr) return head;
+        ListNode* dummy = new ListNode(0);
+        dummy->next = head;
+        ListNode *prev = dummy, *cur = dummy->next;
+        while (cur && cur->next) {
+            ListNode* forw = cur->next->next;
+            prev->next = cur->next;
+            cur->next->next = cur;
+            cur->next = forw;
+            prev = cur;
+            cur = forw;
+        }
+        return dummy->next;
+    }
+};
+```
+
+##思路2
+递归：
+```C++
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if (head == nullptr || head->next == nullptr) return head;
+        ListNode* forw = swapPairs(head->next->next);
+        ListNode* newhead = head->next;
+        head->next->next = head;
+        head->next = forw;
+        return newhead;
+    }
+};
+```
