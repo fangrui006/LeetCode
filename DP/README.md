@@ -5,5 +5,5 @@
  - 问题具有最优子结构
  - 无后效性
 
-##参考
+## 参考
 1. [DP解题思路](http://blog.csdn.net/baidu_28312631/article/details/47418773)
